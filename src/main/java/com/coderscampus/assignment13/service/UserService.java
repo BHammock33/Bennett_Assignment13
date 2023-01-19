@@ -70,4 +70,12 @@ public class UserService {
 	public void delete(Long userId) {
 		userRepo.deleteById(userId);
 	}
+	public Account findAccountById(Long accountId) {
+		Optional <Account> account = accountRepo.findById(accountId);
+		return account.orElse(new Account());
+	}
+	public Account saveAccount(Account account) {
+		accountRepo.save(account);
+		return account;
+	}
 }

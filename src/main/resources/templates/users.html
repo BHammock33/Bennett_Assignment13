@@ -17,17 +17,47 @@
 				<div>
 					Full Name: <input type="text" th:field="${user.name}" />
 				</div>
+				<hr/>
 				<div>
+					Address Line One: <input type = "text" th:field = "${user.address.addressLine1}"/>
+				</div>
+				<div>
+					Address Line Two: <input type = "text" th:field = "${user.address.addressLine2}"/>
+				</div>
+				<div>
+					City: <input type = "text" th:field = "${user.address.city}"/>
+				</div>
+				<div>
+					Region: <input type = "text" th:field = "${user.address.region}"/>
+				</div>
+				<div>
+					Country: <input type = "text" th:field = "${user.address.country}"/>
+				</div>
+				<div>
+					ZipCode: <input type = "text" th:field = "${user.address.zipCode}"/>
+				</div>
+				<div>
+					<input type = "hidden" th:field="${user.accounts}"/>
 					<input type="submit" value="Update User Account" />
 				</div>
 			</form>
 			<form th:action="@{/users/{userId}/delete(userId=${user.userId})}" method="post">
 				<input type="submit" value="Delete User Account" />
 			</form>
+			<hr/>
+			<h2>Accounts</h2>
+			
+			<div th:each ="accout: ${user.accounts}">
+				<a th:href="@{/users/{userId}/accounts/{accountId} (userId=${user.userId}, accountId =${account.accountId})}"><span th:text ="${account.accountName}"></span></a>
+			</div>
+				<form th:action ="@{/users/{userId}/accounts (userId = ${user.userId})}" method = post>
+				<input type ="submit" value = "Create New Account"/>
+				</form>
+				<a href ="/users">Return</a>
 		</div>
 		
 		<div th:unless="${#lists.size(users) == 1}" th:each="user : ${users}">
-		    <span th:text="${user.userId}"></span><br/>
+		    <a th:href= "@{/users/{userId}(userId = ${user.userId})}" th:text="${user.userId}"></a><br/>
 			<span th:text="${user.username}"></span><br/>
 			<span th:text="${user.name}"></span><br/>
 			<span th:text="${user.password}"></span>
