@@ -4,7 +4,7 @@
 	<title th:text = "${account.accountName}"></title>
 </head>
 <body>
-	<h1 th:thext = "${account.accountName}"></h1>
+	<h1 th:text = "${account.accountName}"></h1>
 	
 	<div>
 		<form action = "" method ="post">
@@ -14,6 +14,6 @@
 		<input type="submit" value = "Update Account"/>
 		</form>
 	</div>
-	<a href = "@{/users/{userId} (userId = ${user.userId})}">Return</a>
+	<a th:href = "@{/users/{userId} (userId = ${user.userId})}">Return</a>
 </body>
 </html>

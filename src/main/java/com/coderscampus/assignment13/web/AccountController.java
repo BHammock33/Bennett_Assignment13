@@ -33,7 +33,7 @@ public class AccountController {
 		model.put("user", user);
 		return "account";
 	}
-	@PostMapping("/users/{userId}/accounts/{accountId}")
+	@PostMapping("users/{userId}/accounts/{accountId}")
 	public String changeAccountName(@PathVariable Long userId, @PathVariable Long accountId, Account account) {
 		account.setAccountName(account.getAccountName());
 		accServe.saveAccount(account);

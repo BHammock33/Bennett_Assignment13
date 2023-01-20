@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.coderscampus.assignment13.domain.Account;
+import com.coderscampus.assignment13.domain.Address;
 import com.coderscampus.assignment13.domain.User;
 import com.coderscampus.assignment13.repository.AccountRepository;
+import com.coderscampus.assignment13.repository.AddressRepository;
 import com.coderscampus.assignment13.repository.UserRepository;
 
 @Service
@@ -20,6 +22,8 @@ public class UserService {
 	private UserRepository userRepo;
 	@Autowired
 	private AccountRepository accountRepo;
+	@Autowired
+	private AddressRepository addressRepo;
 	
 	public List<User> findByUsername(String username) {
 		return userRepo.findByUsername(username);
@@ -64,6 +68,16 @@ public class UserService {
 			accountRepo.save(checking);
 			accountRepo.save(savings);
 		}
+		if(user.getAddress() == null) {
+			Address address = new Address();
+			user.setAddress(address);
+			address.setUser(user);
+			addressRepo.save(address);
+		}
+		if(user.getAddress().getUser() == null) {
+			user.getAddress().setUser(user);
+			user.getAddress().setUserId(user.getUserId());
+		}
 		return userRepo.save(user);
 	}
 
@@ -78,4 +92,5 @@ public class UserService {
 		accountRepo.save(account);
 		return account;
 	}
+	
 }
